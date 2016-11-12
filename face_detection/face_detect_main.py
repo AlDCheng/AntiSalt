@@ -3,11 +3,12 @@ import glob
 import random
 import cv2
 import cv2.cv as cv
+import os
 
-video_capture = cv2.VideoCapture(0)
-facecascade = cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
+script_dir = os.path.dirname(__file__)
+facecascade = cv2.CascadeClassifier(script_dir + "\\haarcascade_frontalface_default.xml")
 
-def grab_webcamframe():
+def grab_webcamframe(video_capture):
     ret, frame = video_capture.read()
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
@@ -20,14 +21,14 @@ def crop_face(clahe_image, face):
         faceslice = cv2.resize(faceslice, (350, 350))
     return faceslice
 
-def main():
+def main(video_capture):
     emotions = ["anger", "happy", "sadness", "neutral"]
 
     fishface = cv2.createFisherFaceRecognizer()
-    fishface.load("trained_emoclassifier.xml")
+    fishface.load(script_dir + "\\trained_emoclassifier.xml")
 
     while(True):
-        clahe_image = grab_webcamframe()
+        clahe_image = grab_webcamframe(video_capture)
         face = facecascade.detectMultiScale(clahe_image, scaleFactor=1.1, minNeighbors=15, minSize=(10, 10), flags=cv2.CASCADE_SCALE_IMAGE)
         if len(face) == 1: 
             faceslice = crop_face(clahe_image, face)
@@ -45,5 +46,5 @@ def main():
             break
 
     # When everything done, release the capture
-    cap.release()
+    #cap.release()
     cv2.destroyAllWindows()
