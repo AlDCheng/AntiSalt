@@ -38,10 +38,10 @@ def update_model(emotions):
 
 def check_folders(emotions): #check if folder infrastructure is there, create if absent
     for x in emotions:
-        if os.path.exists("dataset\\%s" %x):
+        if os.path.exists("dataset/%s" %x):
             pass
         else:
-            os.makedirs("dataset\\%s" %x)
+            os.makedirs("dataset/%s" %x)
 
 def save_face(emotion):
     print("\n\nplease look " + emotion + " when the timer expires and keep the expression stable until instructed otherwise.")
@@ -51,8 +51,8 @@ def save_face(emotion):
     while len(facedict.keys()) < 16: #Grab 15 images for each emotion
         detect_face()
     for x in facedict.keys(): #save contents of dictionary to files
-        print(emotion, "dataset\\%s\\user_%s.jpg" %(emotion, len(glob.glob("dataset\\%s\\*" %emotion))))
-        cv2.imwrite("dataset\\%s\\user_%s.jpg" %(emotion, len(glob.glob("dataset\\%s\\*" %emotion))), facedict[x])
+        print(emotion, "dataset/%s/user_%s.jpg" %(emotion, len(glob.glob("dataset/%s/*" %emotion))))
+        cv2.imwrite("dataset/%s/user_%s.jpg" %(emotion, len(glob.glob("dataset/%s/*" %emotion))), facedict[x])
     facedict.clear() #clear dictionary so that the next emotion can be stored
 
 def grab_webcamframe():
@@ -71,4 +71,4 @@ def detect_face():
     else:
         print("no/multiple faces detected, passing over frame")
 
-#update_model(emotions)
+update_model(emotions)

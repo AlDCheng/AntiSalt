@@ -34,7 +34,3 @@ def classify_sentence(words):
     pos = pos/effective_total
     neg = neg/effective_total
     return pos - neg
-
-
-
-

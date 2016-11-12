@@ -12,7 +12,7 @@ def make_sets(emotions):
     training_labels = []
 
     for emotion in emotions:
-        training = training = glob.glob("dataset\\%s\\*" %emotion)
+        training = training = glob.glob("dataset/%s/*" %emotion)
         for item in training:
             image = cv2.imread(item) 
             gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY) 
@@ -38,3 +38,5 @@ def main():
     emotions = ["anger", "happy", "sadness", "neutral"]
     make_sets(emotions)
     update(emotions)
+
+main()
