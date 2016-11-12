@@ -2,9 +2,9 @@ from cue_sdk import *
 import time
 import readchar
 from msvcrt import getch
-Corsair = CUESDK('C:\\Users\\jesse\\Downloads\\CUESDK_2.4.67\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll')
+Corsair = CUESDK('C:\\Users\\Israel\\Desktop\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll')
 
-Corsair.RequestControl(CAM.ExclusiveLightingControl)
+#Corsair.RequestControl(CAM.ExclusiveLightingControl)
 
 algonumber = 100
 
@@ -26,19 +26,22 @@ def SetKeyboardMood(algonumber):
     elif algonumber >= 20 and algonumber < 40: #Green to blue from 40-20
         SetKeyboardColor(0, int(12.75*algonumber-255), int(-12.75*algonumber+510))
     elif algonumber >= 0 and algonumber < 20: #Blue to white from 20-0
-        SetKeyboardColor(int(-12.75*algonumber+255), int(-12.75*algonumber+255), 255)
-
-for x in range(1, 101):
-    SetKeyboardMood(x)
-    time.sleep(0.25)
-
-#def SetKeyboardSalt():
+        SetKeyboardColor(int(-12.75*algonumber+255), int(-12.75*algonumber+255),255)
 
 
+def Propogate(algonumber):
+    for i in range(1,70):
+        Corsair.set_led_colors(CorsairLedColor(i, 255, int(-1.5 * algonumber + 150), 0))
+        Corsair.set_led_colors(CorsairLedColor(121-i, 255, int(-1.5 * algonumber + 150), 0))
+        time.sleep(0.02)
 
 
-"""for i in range():
-    Corsair.set_led_colors_async(CorsairLedColor(CLK.H, 255, 0, 0))
 
-    Corsair.set_led_colors_async(CorsairLedColor(CLK.H, 0, 0, 255))
-"""
+algo = input("What is the salt level?")
+Propogate(algo)
+time.sleep(1)
+for i in reversed(range(0,algo)):
+    SetKeyboardMood(i)
+    time.sleep(0.1)
+time.sleep(1)
+
