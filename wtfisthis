@@ -1,0 +1,211 @@
+def AlgoLevel(algonumber):
+    if algonumber >= 80 and algonumber <= 100: #Red to orange from 100-80
+        return 4
+    elif algonumber >= 60 and algonumber < 80: #Orange to yellow from 80-60
+        return 3
+    elif algonumber >= 40 and algonumber < 60: #Yellow to green from 60-40
+        return 2
+    elif algonumber >= 20 and algonumber < 40: #Green to blue from 40-20
+        return 1
+    elif algonumber >= 0 and algonumber < 20: #Blue to white from 20-0
+        return 0
+    else:
+        return None
+
+def Transition(algonumber1, algonumber2):
+    #Transition runs in approximately transition time (would have to test to verify)
+    interval = 10.0
+    upper = 11 #Default value for upper bound
+
+    algolevel2 = AlgoLevel(algonumber2)
+    algolevel1 = AlgoLevel(algonumber1)
+
+    r1 = MoodColor(algonumber1)[0]
+    g1 = MoodColor(algonumber1)[1]
+    b1 = MoodColor(algonumber1)[2]
+
+    r2 = MoodColor(algonumber2)[0]
+    g2 = MoodColor(algonumber2)[1]
+    b2 = MoodColor(algonumber2)[2]
+
+    d1 = r2 - r1
+    d2 = g2 - g1
+    d3 = b2 - b1
+
+    algotracker = algonumber1
+    algotrackerlevel = algolevel1
+
+    sleeptime = interval/max(abs(d1), abs(d2), abs(d3)) #Amount of time to complete each micro transition for the whole transition to take about interval time
+    
+    r = 0
+    g = 0
+    b = 0
+
+    while (not -1 < algonumber2 - algotracker < 1): #Confidence interval of +- 2
+        if (algolevel2 == algotrackerlevel): #Linearize if same level
+            d1 = r2 - r1
+            d2 = g2 - g1
+            d3 = b2 - b1
+            if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+            if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+            if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+            upper = max(abs(d1), abs(d2), abs(d3))
+            for x in range(1, upper+1):
+                r = r1 + d1 / upper
+                g = g1 + d2 / upper
+                b = b1 + d3 / upper
+                SetKeyboardColor(r, g, b)
+                time.sleep(sleeptime)
+            algotracker = algonumber2
+            algotrackerlevel = AlgoLevel(algotracker)
+            SetKeyboardMood(algonumber2) #Failsafe in case approximation fails
+
+        elif (algolevel2 > algotrackerlevel): #Linearize to closest level
+            if algotrackerlevel == 0:
+                d1 = -r1
+                d2 = -g1
+                d3 = 255-b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper+1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 20
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(20)  # Failsafe
+            elif algotrackerlevel == 1:
+                d1 = -r1
+                d2 = 255-g1
+                d3 = -b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper + 1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 40
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(40) # Failsafe
+            elif algotrackerlevel == 2:
+                d1 = 255-r1
+                d2 = 255-g1
+                d3 = -b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper + 1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 60
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(60) # Failsafe
+            elif algotrackerlevel == 3:
+                d1 = 255-r1
+                d2 = 30-g1
+                d3 = -b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper + 1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 80
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(80) # Failsafe
+
+            elif algotrackerlevel == 4:
+                return None #Not possible return error
+        elif (algolevel2 < algotrackerlevel): #Linearize to closest level
+            if algotrackerlevel == 0:
+                return None #Not possible return error
+            elif algotrackerlevel == 1:
+                d1 = -r1
+                d2 = -g1
+                d3 = 255-b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper + 1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 19
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(19) # Failsafe
+            elif algotrackerlevel == 2:
+                d1 = -r1
+                d2 = 255-g1
+                d3 = -b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper + 1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 39
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(39) # Failsafe
+            elif algotrackerlevel == 3:
+                d1 = 255-r1
+                d2 = 255-g1
+                d3 = -b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper + 1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 59
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(59) # Failsafe
+
+            elif algotrackerlevel == 4:
+                d1 = 255-r1
+                d2 = 30-g1
+                d3 = -b1
+                if (r1 + d1 < 0 or r1 + d1 > 255): d1 = 0
+                if (g1 + d2 < 0 or g1 + d2 > 255): d2 = 0
+                if (b1 + d3 < 0 or b1 + d3 > 255): d3 = 0
+                upper = max(abs(d1), abs(d2), abs(d3))
+                for x in range(1, upper + 1):
+                    r = r1 + d1 / upper
+                    g = g1 + d2 / upper
+                    b = b1 + d3 / upper
+                    SetKeyboardColor(r, g, b)
+                    time.sleep(sleeptime)
+                algotracker = 79
+                algotrackerlevel = AlgoLevel(algotracker)
+                SetKeyboardMood(79) # Failsafe
+
+SetKeyboardMood(20)
+Transition(20, 40)
+
+time.sleep(5)
