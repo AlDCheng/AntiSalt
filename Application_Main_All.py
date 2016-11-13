@@ -1,5 +1,6 @@
 import sys, os, time
 import cv2
+import msvcrt
 from ctypes import c_int
 from Tkinter import *
 from multiprocessing import Process, Manager, Pool, Value, Lock
@@ -11,6 +12,7 @@ from face_detection import face_detect_main as fd
 from NLP import NLK_sentiment as sc
 from LightingFX import Spiral as sp
 from LightingFX import mood_lighting as ml
+from Music import music as mu
 facecascade = cv2.CascadeClassifier("face_detection\\haarcascade_frontalface_default.xml")
 
 def video_stream(val, lock):
@@ -23,6 +25,8 @@ def video_stream(val, lock):
 	fishface.load("face_detection\\trained_emoclassifier.xml")
 
 	while(True):
+		if(val.value == 666):
+			break
 		clahe_image = fd.grab_webcamframe(video_capture)
 		face = facecascade.detectMultiScale(clahe_image, scaleFactor=1.1, minNeighbors=15, minSize=(10, 10), flags=cv2.CASCADE_SCALE_IMAGE)
 
@@ -61,6 +65,8 @@ def video_stream(val, lock):
 	video_capture.release()
 	cv2.destroyAllWindows()
 	print 'video_stream: finishing'
+	with lock:
+		val.value = 666
 
 def text_stream(val, lock):
 	print 'text_stream: starting'
@@ -112,17 +118,23 @@ def text_stream(val, lock):
 	root.mainloop()
 
 	print 'text_stream: finishing'
+	with lock:
+		val.value = 666
 
 def read_console(val, lock):
 	print 'read_console: starting'
 
 	past_val = 0
 	while True:
+		if(val.value == 666):
+			break
 		cur_val = val.value
-		ml.Transition(cur_val,past_val)
+		ml.Transition2(cur_val,past_val)
 		past_val = cur_val 
 
 	print 'read_console: finishing'
+	with lock:
+		val.value = 666
 
 #Main function
 
@@ -132,7 +144,10 @@ def disp_alt(val, lock):
 	def task():
 		#print("hello")
 		salt_val.set(val.value)
-		master.after(10, task)  # reschedule event in 2 seconds
+		#if val.value > 90:
+			#mu.play_music("BobMarley.mp3")
+		if(val.value != 666):
+			master.after(10, task)  # reschedule event in 2 seconds
 
 	salt_val = StringVar()
 	salt = Label(master, textvariable=salt_val)

@@ -21,6 +21,20 @@ def Transition(algonumber1, algonumber2):
         algonumber -= 1
         time.sleep(interval/delta)
 
+def Transition2(algonumber1, algonumber2):
+    algonumber = algonumber1
+    delta = abs(algonumber2 - algonumber1)
+    interval = 0.01
+
+    while (algonumber2 > algonumber):
+        SetKeyboardMood2(algonumber)
+        algonumber += 1
+        time.sleep(interval/delta)
+    while (algonumber2 < algonumber):
+        SetKeyboardMood2(algonumber)
+        algonumber -= 1
+        time.sleep(interval/delta)
+
 #from nltk_sentiment import *
 
 #Corsair.RequestControl(CAM.ExclusiveLightingControl)
@@ -40,6 +54,16 @@ def SetKeyboardMood(algonumber):
         SetKeyboardColor(0, int(12.75*algonumber-255), int(-12.75*algonumber+510))
     elif algonumber >= 0 and algonumber < 20: #Blue to white from 20-0
         SetKeyboardColor(int(-12.75*algonumber+255), int(-12.75*algonumber+255),255)
+
+def SetKeyboardMood2(algonumber):
+    if algonumber >= 75 and algonumber <= 100: #Red to yellow from 100-75
+        SetKeyboardColor(255, int(-10.2*algonumber+1020), 0)
+    elif algonumber >= 50 and algonumber < 75: #Yellow to white from 75-50
+        SetKeyboardColor(255, 255, int(-10.2*algonumber+765))
+    elif algonumber >= 25 and algonumber < 50: #White to green from 50-25
+        SetKeyboardColor(int(10.2*algonumber-255), 255, int(10.2*algonumber-255))
+    elif algonumber >= 0 and algonumber < 25: #Green to blue from 25-0
+        SetKeyboardColor(0, int(10.2*algonumber), int(-10.2*algonumber+255))
 
 def SideProp(algonumber):
     wave1 = [CLK.Escape, CLK.LeftGui, CLK.GraveAccentAndTilde,CLK.Tab, CLK.CapsLock, CLK.LeftShift,CLK.LeftCtrl, CLK.KeypadMinus, CLK.KeypadPlus, CLK.KeypadEnter, CLK.ScanNextTrack]
