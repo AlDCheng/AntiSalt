@@ -34,8 +34,8 @@ def video_stream(val, lock):
 				inc_val = 3
 			elif(pred == 1): #happy
 				inc_val = -1
-			elif(pred == 1): #happy
-				inc_val = 2
+			elif(pred == 2): sadness
+				inc_val = 1
 			else:
 				inc_val = 0
 
