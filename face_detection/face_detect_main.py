@@ -36,8 +36,8 @@ def main(video_capture):
             pred, conf = fishface.predict(faceslice)
             print(emotions[pred])
 
-        else:
-            print("no/multiple faces detected, passing over frame")
+        #else:
+            #print("no/multiple faces detected, passing over frame")
 
         # Display the resulting frame
         cv2.imshow('frame',clahe_image)
