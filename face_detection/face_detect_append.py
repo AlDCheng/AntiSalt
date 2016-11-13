@@ -1,10 +1,12 @@
 import cv2
+import cv2.cv as cv
 import numpy as np
 import argparse
 import time
 import glob
 import os
 import Update_Model
+import msvcrt as m
 
 video_capture = cv2.VideoCapture(0)
 video_capture.set(cv.CV_CAP_PROP_FRAME_WIDTH, 640)
@@ -33,7 +35,7 @@ def update_model(emotions):
         print("collected images, looking good! Now updating model...")
         save_face(emotions[i])
     #print("collected images, looking good! Now updating model...")
-    #Update_Model.update(emotions)
+    Update_Model.update(emotions)
     print("Done!")
 
 def check_folders(emotions): #check if folder infrastructure is there, create if absent
@@ -44,7 +46,8 @@ def check_folders(emotions): #check if folder infrastructure is there, create if
             os.makedirs("dataset\\%s" %x)
 
 def save_face(emotion):
-    print("\n\nplease look " + emotion + " when the timer expires and keep the expression stable until instructed otherwise.")
+    print("\n\nplease look " + emotion + " when the timer expires and keep the expression stable until instructed otherwise.\nPress any key to continue")
+    m.getch()
     for i in range(0,5):#Timer to give you time to read what emotion to express
         print(5-i)
         time.sleep(1)
@@ -71,4 +74,4 @@ def detect_face():
     else:
         print("no/multiple faces detected, passing over frame")
 
-#update_model(emotions)
+update_model(emotions)
