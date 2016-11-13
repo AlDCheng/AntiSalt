@@ -125,9 +125,18 @@ def read_console(val, lock):
 	print 'read_console: starting'
 
 	past_val = 0
+	play = False
 	while True:
 		if(val.value == 666):
 			break
+
+		if val.value > 90 and not play:
+			play = True
+			mu.play_music("BobMarley.mp3", play)
+		elif play and val.value < 50:
+			play = False
+			mu.play_music("BobMarley.mp3", play)
+			
 		cur_val = val.value
 		ml.Transition2(cur_val,past_val)
 		past_val = cur_val 
@@ -144,8 +153,6 @@ def disp_alt(val, lock):
 	def task():
 		#print("hello")
 		salt_val.set(val.value)
-		#if val.value > 90:
-			#mu.play_music("BobMarley.mp3")
 		if(val.value != 666):
 			master.after(10, task)  # reschedule event in 2 seconds
 
