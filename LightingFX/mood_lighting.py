@@ -6,6 +6,21 @@ import os
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 Corsair = CUESDK(dir_path+"\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll")
+
+def Transition(algonumber1, algonumber2):
+    algonumber = algonumber1
+    delta = abs(algonumber2 - algonumber1)
+    interval = 0.01
+
+    while (algonumber2 > algonumber):
+        SetKeyboardMood(algonumber)
+        algonumber += 1
+        time.sleep(interval/delta)
+    while (algonumber2 < algonumber):
+        SetKeyboardMood(algonumber)
+        algonumber -= 1
+        time.sleep(interval/delta)
+
 #from nltk_sentiment import *
 
 #Corsair.RequestControl(CAM.ExclusiveLightingControl)

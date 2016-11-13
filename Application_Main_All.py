@@ -3,6 +3,7 @@ import cv2
 from ctypes import c_int
 from Tkinter import *
 from multiprocessing import Process, Manager, Pool, Value, Lock
+from time import sleep
 
 #import text_testbox as tb
 from face_detection import face_detect_main as fd
@@ -27,24 +28,27 @@ def video_stream(val, lock):
 
 		if len(face) == 1: 
 			faceslice = fd.crop_face(clahe_image, face)
-			cv2.putText(faceslice,'Hello World!',(10,500), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2)
-			cv2.imshow('face',faceslice)
 			pred, conf = fishface.predict(faceslice)
+			cv2.putText(faceslice,emotions[pred],(100,330), cv2.FONT_HERSHEY_SIMPLEX, 1,255,2)
+			cv2.imshow('face',faceslice)
+			
 			#print(emotions[pred])
 			inc_val = 0
 			if(pred == 0): #anger
-				inc_val = 3
+				inc_val = 0.7
 			elif(pred == 1): #happy
-				inc_val = -1
+				inc_val = -0.5
 			elif(pred == 2): #sadness
-				inc_val = 1
+				inc_val = 0.3
 			else:
-				inc_val = 0
+				inc_val = -0.2
 
 			with lock:
 				val.value += inc_val
 				if(val.value < 0):
-					val.vaue = 0
+					val.value = 0
+				elif(val.value > 100):
+					val.value = 100
 
 			#shared_list.append(emotions[pred])
 
@@ -73,6 +77,8 @@ def text_stream(val, lock):
 			val.value += int(sent_stats)
 			if (val.value < 0):
 				val.value = 0
+			elif(val.value > 100):
+				val.value = 100
 
 		cur_time = time.strftime("%I")+":"+time.strftime("%M")+time.strftime("%p")+": "
 		
@@ -80,8 +86,9 @@ def text_stream(val, lock):
 		T.insert(END, cur_time+input_get+"\n")
 		T.insert(END, "> " + str(sent_stats) + "\n")
 		T.configure(state='disabled')
-
+		T.see("end")
 		input_field.delete(0, END)
+
 	root = Tk()
 	root.minsize(width=200, height=600)
 	frame1 = Frame(root)
@@ -109,32 +116,58 @@ def text_stream(val, lock):
 def read_console(val, lock):
 	print 'read_console: starting'
 
+	past_val = 0
 	while True:
-		print val.value
-		#algo = val.value
-		#sp.Spiral(algo)
-		#ml.SideProp(algo)
-		# time.sleep(1)
-		#for i in reversed(range(50,algo)):
-		#	print i
-		#	ml.SetKeyboardMood(i)
-		#	time.sleep(0.01)
+		cur_val = val.value
+		ml.Transition(cur_val,past_val)
+		past_val = cur_val 
 
 	print 'read_console: finishing'
 
 #Main function
 
+def disp_alt(val, lock):
+	master = Tk()
+
+	def task():
+		#print("hello")
+		salt_val.set(val.value)
+		master.after(10, task)  # reschedule event in 2 seconds
+
+	salt_val = StringVar()
+	salt = Label(master, textvariable=salt_val)
+	salt.pack(fill="x")
+
+	master.after(10, task)
+	master.mainloop()
+
+	"""
+	def update_val():
+		salt_val.set(val.value)	
+		master.after(500, update_val)
+
+	master = Tk()
+	salt_val = StringVar()
+	salt = Label(master, textvariable=salt_val)
+	salt_val.set(val.value)
+	salt.pack(fill="x")
+	master.after(0, update_val) 
+	master.mainloop()
+	"""
+
 if __name__ == '__main__':
 	#manager = Manager()
 	#shared_list = manager.list()
 	#salt_val = manager.integer()
-	v = Value('i', 0)
+	v = Value('f', 0)
 	lock = Lock()
 
+	p4 = Process(target=disp_alt, args=(v, lock))
 	p3 = Process(target=read_console, args=(v, lock))
 	p2 = Process(target=text_stream, args=(v, lock))
 	p1 = Process(target=video_stream, args=(v, lock))
 
+	p4.start()
 	p3.start()
 	p2.start()
 	p1.start()
@@ -142,3 +175,4 @@ if __name__ == '__main__':
 	p1.join()
 	p2.join()
 	p3.join()
+	p4.join()
