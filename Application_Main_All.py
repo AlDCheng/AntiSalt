@@ -6,8 +6,10 @@ from multiprocessing import Process, Manager, Pool, Value, Lock
 
 #import text_testbox as tb
 from face_detection import face_detect_main as fd
-from NLP import swnclassify as sc
-
+#from NLP import swnclassify as sc
+from NLP import NLK_sentiment as sc
+from LightingFX import Spiral as sp
+from LightingFX import mood_lighting as ml
 facecascade = cv2.CascadeClassifier("face_detection\\haarcascade_frontalface_default.xml")
 
 def video_stream(val, lock):
@@ -28,7 +30,7 @@ def video_stream(val, lock):
 			cv2.putText(faceslice,'Hello World!',(10,500), cv2.FONT_HERSHEY_SIMPLEX, 1,(255,255,255),2)
 			cv2.imshow('face',faceslice)
 			pred, conf = fishface.predict(faceslice)
-			print(emotions[pred])
+			#print(emotions[pred])
 			inc_val = 0
 			if(pred == 0): #anger
 				inc_val = 3
@@ -59,14 +61,16 @@ def video_stream(val, lock):
 def text_stream(val, lock):
 	print 'text_stream: starting'
 	sc.classify_sentence("initializing")
+	#print(sc.get_nltk_algonumber("initializing"))
 
 	def Enter_pressed(event):
 		input_get = input_field.get()
 		sent_stats = sc.classify_sentence(input_get)
-		print(sent_stats)
+		#sent_stats = sc.get_nltk_algonumber(input_get)
+		#xprint(sent_stats)
 		#shared_list.append(sent_stats)
 		with lock:
-			val.value += int(-5*sent_stats)
+			val.value += int(sent_stats)
 			if (val.value < 0):
 				val.value = 0
 
@@ -107,6 +111,14 @@ def read_console(val, lock):
 
 	while True:
 		print val.value
+		#algo = val.value
+		#sp.Spiral(algo)
+		#ml.SideProp(algo)
+		# time.sleep(1)
+		#for i in reversed(range(50,algo)):
+		#	print i
+		#	ml.SetKeyboardMood(i)
+		#	time.sleep(0.01)
 
 	print 'read_console: finishing'
 

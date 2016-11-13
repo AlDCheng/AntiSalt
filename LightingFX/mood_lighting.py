@@ -2,10 +2,11 @@ from cue_sdk import *
 from Spiral import *
 import time
 import random
-from nltk_sentiment import *
+import os
+dir_path = os.path.dirname(os.path.realpath(__file__))
 
-
-Corsair = CUESDK('C:\\Users\\Israel\\Desktop\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll')
+Corsair = CUESDK(dir_path+"\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll")
+#from nltk_sentiment import *
 
 #Corsair.RequestControl(CAM.ExclusiveLightingControl)
 def SetKeyboardColor(r, g, b):
@@ -52,6 +53,7 @@ def SideProp(algonumber):
             elif algonumber >= 0 and algonumber < 20:
                 Corsair.set_led_colors(CorsairLedColor(i,int(-12.75*algonumber+255), int(-12.75*algonumber+255),255))
             time.sleep(0.01)
+"""
 def _main_():
         while True:
 
@@ -64,4 +66,4 @@ def _main_():
                 SetKeyboardMood(i)
                 time.sleep(0.01)
 _main_()
-
+"""

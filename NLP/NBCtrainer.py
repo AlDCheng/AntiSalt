@@ -26,6 +26,11 @@ def return_classifier(stat=False):
         classifier.show_most_informative_features()     
     return classifier
 
-
-
-
+def classify_sentence(text):
+    words = re.sub("[^\w]", " ",  text).split()
+    set = return_classifier().classify(words)
+    if set == 'neg':
+        k = random.randint(50,100)
+    elif set == 'pos':
+        k = random.randint(1,50)
+    return k
