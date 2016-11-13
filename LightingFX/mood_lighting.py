@@ -1,6 +1,9 @@
 from cue_sdk import *
+from Spiral import *
 import time
 import random
+from nltk_sentiment import *
+
 
 Corsair = CUESDK('C:\\Users\\Israel\\Desktop\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll')
 
@@ -51,13 +54,14 @@ def SideProp(algonumber):
             time.sleep(0.01)
 def _main_():
         while True:
-            algo = random.randint(1, 100)
-            SideProp(algo)
+
+            algo = int(get_nltk_algonumber())
+            algo = 70
+            Spiral(algo)
             time.sleep(1)
-            for i in reversed(range(0,algo)):
+            for i in reversed(range(50,algo)):
+                print i
                 SetKeyboardMood(i)
                 time.sleep(0.01)
-            time.sleep(1)
 _main_()
-
 
