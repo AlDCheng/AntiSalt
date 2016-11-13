@@ -31,7 +31,7 @@ def Spiral(algonumber):
     g = MoodColor(algonumber)[1]
     b = MoodColor(algonumber)[2]
 
-    interval = 0.05
+    interval = 0.025
 
     for x in range(1, 13):
         Corsair.set_led_colors(CorsairLedColor(x, r, g, b))
