@@ -34,18 +34,19 @@ def MoodColor(algonumber):
         b = 255
     return (r, g, b)
 
-
+#Lighting Effect for use in main application
 def Spiral(algonumber):
     r = MoodColor(algonumber)[0]
     g = MoodColor(algonumber)[1]
     b = MoodColor(algonumber)[2]
-
+    #Sleep interval between lighting
     interval = 0.025
 
     for x in range(1, 13):
         Corsair.set_led_colors(CorsairLedColor(x, r, g, b))
         time.sleep(interval)
-
+    #Lights each individual key in a spiraling order and sleeps after each individual
+    #key press to obtain desired effect.
     Corsair.set_led_colors(CorsairLedColor(CLK.F12, r, g, b))
     time.sleep(interval)
 
