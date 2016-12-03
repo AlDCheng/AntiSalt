@@ -1,3 +1,18 @@
+"""---------------------------------------------------------------------
+ Create facial emotion classifier training images
+ Adapted from: http://www.paulvangent.com/2016/04/01/emotion-recognition-with-python-opencv-and-a-face-dataset/
+ (Mostly unchanged from source)
+
+ Modifications by: Alan Cheng
+ Email: adcheng@mit.edu
+ Date: 12/3/2016
+
+ Description:
+ Create more training data for facial emotion classifier
+
+ SentiBoard Team: Alan Cheng, Jueun Lee, Israel Macias, Jesse Widner
+---------------------------------------------------------------------"""
+
 import cv2
 import cv2.cv as cv
 import numpy as np

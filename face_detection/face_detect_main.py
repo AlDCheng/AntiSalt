@@ -1,3 +1,17 @@
+"""---------------------------------------------------------------------
+ OpenCV helper functions:
+
+ Author: Alan Cheng
+ Email: adcheng@mit.edu
+ Date: 12/3/2016
+
+ Description:
+ Majority of code moved to main script. Leftover helper functions found
+ in here.
+
+ SentiBoard Team: Alan Cheng, Jueun Lee, Israel Macias, Jesse Widner
+---------------------------------------------------------------------"""
+
 import numpy as np
 import glob
 import random
