@@ -1,3 +1,19 @@
+"""
+
+Purpose:
+    To test LED changes. Not used in final application. Mainly used for initial testing. Available for testing.
+    
+Created by:
+    Israel Macias (irmacias@mit.edu) and Jesse Widner (jwidner@mit.edu)
+
+SentiBoard Team:
+    Alan Cheng, Jesse Widner, Jueun Lee, Israel Macias
+
+"""
+
+
+
+
 from cue_sdk import *
 import time
 import random
@@ -63,14 +79,3 @@ def SideProp(algonumber):
                 Corsair.set_led_colors(CorsairLedColor(i,int(-12.75*algonumber+255), int(-12.75*algonumber+255),255))
             time.sleep(0.01)
             
-#Call to sideprop. Never used in final product.
-def _main_():
-    for k in range(10):
-        algo = random.randint(1,100)
-        SideProp(algo)
-        time.sleep(0.1)
-        for i in reversed(range(0,algo)):
-            SetKeyboardMood(i)
-            time.sleep(0.1)
-        time.sleep(1)
-
