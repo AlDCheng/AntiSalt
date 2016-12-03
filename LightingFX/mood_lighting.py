@@ -3,8 +3,8 @@ from Spiral import *
 import time
 import random
 import os
-dir_path = os.path.dirname(os.path.realpath(__file__))
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
 Corsair = CUESDK(dir_path+"\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll")
 
 def Transition(algonumber1, algonumber2):
@@ -35,11 +35,7 @@ def Transition2(algonumber1, algonumber2):
         algonumber -= 1
         time.sleep(interval/delta)
 
-#from nltk_sentiment import *
-
-#Corsair.RequestControl(CAM.ExclusiveLightingControl)
 def SetKeyboardColor(r, g, b):
-    #Wait until key is pressed
     for x in range (1, 130):
         Corsair.set_led_colors(CorsairLedColor(x, r, g, b))
 
@@ -65,6 +61,7 @@ def SetKeyboardMood2(algonumber):
     elif algonumber >= 0 and algonumber < 25: #Green to blue from 25-0
         SetKeyboardColor(0, int(10.2*algonumber), int(-10.2*algonumber+255))
 
+#SidePropagation function for side to side wave lighting
 def SideProp(algonumber):
     wave1 = [CLK.Escape, CLK.LeftGui, CLK.GraveAccentAndTilde,CLK.Tab, CLK.CapsLock, CLK.LeftShift,CLK.LeftCtrl, CLK.KeypadMinus, CLK.KeypadPlus, CLK.KeypadEnter, CLK.ScanNextTrack]
     wave2 = [CLK.Z,CLK.A,CLK.Q,14,CLK.KeypadAsterisk, CLK.Keypad9,CLK.Keypad6,CLK.Keypad3,CLK.KeypadPeriodAndDelete,CLK.LeftAlt, CLK.PlayPause]
@@ -92,17 +89,3 @@ def SideProp(algonumber):
             elif algonumber >= 0 and algonumber < 20:
                 Corsair.set_led_colors(CorsairLedColor(i,int(-12.75*algonumber+255), int(-12.75*algonumber+255),255))
             time.sleep(0.01)
-"""
-def _main_():
-        while True:
-
-            algo = int(get_nltk_algonumber())
-            algo = 70
-            Spiral(algo)
-            time.sleep(1)
-            for i in reversed(range(50,algo)):
-                print i
-                SetKeyboardMood(i)
-                time.sleep(0.01)
-_main_()
-"""
