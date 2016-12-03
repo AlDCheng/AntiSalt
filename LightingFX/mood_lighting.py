@@ -1,9 +1,11 @@
 """
-For use in main application. Main lighting functions that change keyboard colors in unison as a color gradient.
+Purpose:
+    For use in main application. Main lighting functions that change keyboard colors in unison according to a color gradient.
 
-Created by: Israel Macias and Jesse Widner
-
-Team: Alan Cheng, Jesse Widner, Jueun Lee, Israel Macias
+Created by: 
+    Israel Macias (irmacias@mit.edu) and Jesse Widner (jwidner@mit.edu
+    
+SentiBoard Team: Alan Cheng, Jesse Widner, Jueun Lee, Israel Macias
 """
 
 
