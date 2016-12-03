@@ -3,9 +3,11 @@ Purpose:
     For use in main application. Main lighting functions that change keyboard colors in unison according to a color gradient.
 
 Created by: 
-    Israel Macias (irmacias@mit.edu) and Jesse Widner (jwidner@mit.edu
+    Israel Macias (irmacias@mit.edu) and Jesse Widner (jwidner@mit.edu)
     
-SentiBoard Team: Alan Cheng, Jesse Widner, Jueun Lee, Israel Macias
+SentiBoard Team: 
+    Alan Cheng, Jesse Widner, Jueun Lee, Israel Macias
+
 """
 
 
