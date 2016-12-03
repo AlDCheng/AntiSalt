@@ -1,3 +1,15 @@
+"""
+Purpose:
+    To test LED changes for a spiraling effect. Not used in final application but is available for use if another lighting effect 
+    is desired. Available also for reference. Main LED effects and explanation of functions found in moodlighting.py
+    
+Created by:
+    Israel Macias (irmacias@mit.edu) and Jesse Widner (jwidner@mit.edu)
+SentiBoard Team:
+    Alan Cheng, Jesse Widner, Jueun Lee, Israel Macias
+    
+"""
+
 from cue_sdk import *
 from Spiral import *
 import time
