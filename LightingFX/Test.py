@@ -2,14 +2,12 @@ from cue_sdk import *
 import time
 import readchar
 from msvcrt import getch
-Corsair = CUESDK('C:\\Users\\Israel\\Desktop\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll')
+import os
 
-#Corsair.RequestControl(CAM.ExclusiveLightingControl)
+dir_path = os.path.dirname(os.path.realpath(__file__))
+Corsair = CUESDK(dir_path+"\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll")
 
 algonumber = 100
-
-blue = algonumber * 255 / 100
-red = 255 - blue
 
 def SetKeyboardColor(r, g, b):
     #Wait until key is pressed
