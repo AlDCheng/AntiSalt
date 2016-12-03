@@ -1,14 +1,12 @@
 from cue_sdk import *
 import time
 import random
-Corsair = CUESDK('C:\\Users\\Israel\\Desktop\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll')
+import os
 
-#Corsair.RequestControl(CAM.ExclusiveLightingControl)
+dir_path = os.path.dirname(os.path.realpath(__file__))
+Corsair = CUESDK(dir_path+"\\CUESDK\\bin\\x64\\CUESDK.x64_2015.dll")
 
-algonumber = 100
-
-blue = algonumber * 255 / 100
-red = 255 - blue
+algonumber = 100 #Number that defines the current color of a specific key that is made proportional to the RGB values.
 
 def SetKeyboardColor(r, g, b):
     #Wait until key is pressed
@@ -35,6 +33,9 @@ def Propogate(algonumber):
         time.sleep(0.02)
 
 def SideProp(algonumber):
+    #Wave lighting effect that propagates from left to right and right to left simultaneously.
+    #Was used for initial testing but later left unused. Code is available for use if desired.
+    #Not used in final application.
     wave1 = [CLK.Escape, CLK.LeftGui, CLK.GraveAccentAndTilde,CLK.Tab, CLK.CapsLock, CLK.LeftShift,CLK.LeftCtrl, CLK.KeypadMinus, CLK.KeypadPlus, CLK.KeypadEnter]
     wave2 = [CLK.Z,CLK.A,CLK.Q,14,CLK.KeypadAsterisk, CLK.Keypad9,CLK.Keypad6,CLK.Keypad3,CLK.KeypadPeriodAndDelete,CLK.LeftAlt]
     wave3 = [CLK.F1,15,CLK.W,CLK.S,CLK.X,CLK.KeypadSlash,CLK.Keypad8,CLK.Keypad5,CLK.Keypad2,CLK.Keypad0]
@@ -61,13 +62,15 @@ def SideProp(algonumber):
             elif algonumber >= 0 and algonumber < 20:
                 Corsair.set_led_colors(CorsairLedColor(i,int(-12.75*algonumber+255), int(-12.75*algonumber+255),255))
             time.sleep(0.01)
-
-for k in range(10):
-    algo = random.randint(1,100)
-    SideProp(algo)
-    time.sleep(0.1)
-    for i in reversed(range(0,algo)):
-        SetKeyboardMood(i)
+            
+#Call to sideprop. Never used in final product.
+def _main_():
+    for k in range(10):
+        algo = random.randint(1,100)
+        SideProp(algo)
         time.sleep(0.1)
-    time.sleep(1)
+        for i in reversed(range(0,algo)):
+            SetKeyboardMood(i)
+            time.sleep(0.1)
+        time.sleep(1)
 
