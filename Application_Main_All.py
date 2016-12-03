@@ -1,18 +1,21 @@
+# SentiBoard Main 
+
 import sys, os, time
 import cv2
 import msvcrt
+import numpy
+
 from ctypes import c_int
-from Tkinter import *
 from multiprocessing import Process, Manager, Pool, Value, Lock
 from time import sleep
 
-#import text_testbox as tb
 from face_detection import face_detect_main as fd
-#from NLP import swnclassify as sc
 from NLP import NLK_sentiment as sc
 from LightingFX import Spiral as sp
 from LightingFX import mood_lighting as ml
 from Music import music as mu
+from Tkinter import *
+
 facecascade = cv2.CascadeClassifier("face_detection\\haarcascade_frontalface_default.xml")
 
 def video_stream(val, lock):
@@ -30,7 +33,8 @@ def video_stream(val, lock):
 		clahe_image = fd.grab_webcamframe(video_capture)
 		face = facecascade.detectMultiScale(clahe_image, scaleFactor=1.1, minNeighbors=15, minSize=(10, 10), flags=cv2.CASCADE_SCALE_IMAGE)
 
-		if len(face) == 1: 
+		#if len(face) == 1: 
+		if len(face) > 0: 
 			faceslice = fd.crop_face(clahe_image, face)
 			pred, conf = fishface.predict(faceslice)
 			cv2.putText(faceslice,emotions[pred],(100,330), cv2.FONT_HERSHEY_SIMPLEX, 1,255,2)
@@ -47,14 +51,18 @@ def video_stream(val, lock):
 			else:
 				inc_val = -0.2
 
-			with lock:
-				val.value += inc_val
-				if(val.value < 0):
-					val.value = 0
-				elif(val.value > 100):
-					val.value = 100
+			
 
 			#shared_list.append(emotions[pred])
+		else:
+			inc_val = -0.01
+ 
+		with lock:
+			val.value += inc_val
+			if(val.value < 0):
+				val.value = 0
+			elif(val.value > 100):
+				val.value = 100
 
 		cv2.imshow('frame',clahe_image)
 
@@ -125,17 +133,17 @@ def read_console(val, lock):
 	print 'read_console: starting'
 
 	past_val = 0
-	play = False
+	#play = False
 	while True:
 		if(val.value == 666):
 			break
 
-		if val.value > 90 and not play:
+		"""if val.value > 90 and not play:
 			play = True
 			mu.play_music("BobMarley.mp3", play)
 		elif play and val.value < 50:
 			play = False
-			mu.play_music("BobMarley.mp3", play)
+			mu.play_music("BobMarley.mp3", play)"""
 			
 		cur_val = val.value
 		ml.Transition2(cur_val,past_val)
