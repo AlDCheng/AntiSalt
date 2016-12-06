@@ -39,9 +39,10 @@ Face Recognition Training Functions (adapted from http://www.paulvangent.com/201
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Alan Cheng** - *Project Lead/Worked on facial detection using OpenCV* - adcheng@mit.edu
+* **Jueun Lee** - *Worked on NLTK* - jueunlee@mit.edu
+* **Israel Macias** - *Worked on Corsair API/NLTK* - irmacias@mit.edu
+* **Jesse Widner** - *Worked on Corsair API* - jwidner@mit.edu
 
 ## Acknowledgments/References
 
