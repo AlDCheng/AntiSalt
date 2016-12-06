@@ -33,7 +33,9 @@ Python Application_Main_All.py
 [mood_lighting.py](https://github.com/AlDCheng/AntiSalt/blob/master/LightingFX/mood_lighting.py) - Script to change Corsair Keyboard backlighting using Corsair API
 [music.py](https://github.com/AlDCheng/AntiSalt/blob/master/Music/music.py) - Optional music playback
 
-### Face Recognition Training Functions (adapted from http://www.paulvangent.com/2016/04/01/emotion-recognition-with-python-opencv-and-a-face-dataset/):
+### Face Recognition Training Functions
+
+Adapted from http://www.paulvangent.com/2016/04/01/emotion-recognition-with-python-opencv-and-a-face-dataset/):
 
 [Update_Model.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/Update_Model.py) - Updates training xml data
 [face_detect_append.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_append.py) - Can be used to add own pictures to training data
