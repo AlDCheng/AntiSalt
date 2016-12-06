@@ -27,18 +27,18 @@ Python Application_Main_All.py
 
 ### Main Program:
 
-[Application_Main_All.py](https://github.com/AlDCheng/AntiSalt/blob/master/Application_Main_All.py) - Main python script using multithreading to handle processing.
-[face_detect_main.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_main.py) - Extra OpenCV helper function. Most of image processing moved to Application_Main_All.py
-[NLK_sentiment.py](https://github.com/AlDCheng/AntiSalt/blob/master/NLP/NLK_sentiment.py) - Final text parser used. Finds if text has positive or negative connotation, and assigns a random weight to it.
-[mood_lighting.py](https://github.com/AlDCheng/AntiSalt/blob/master/LightingFX/mood_lighting.py) - Script to change Corsair Keyboard backlighting using Corsair API
-[music.py](https://github.com/AlDCheng/AntiSalt/blob/master/Music/music.py) - Optional music playback
+* [Application_Main_All.py](https://github.com/AlDCheng/AntiSalt/blob/master/Application_Main_All.py) - Main python script using multithreading to handle processing.
+* [face_detect_main.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_main.py) - Extra OpenCV helper function. Most of image processing moved to Application_Main_All.py
+* [NLK_sentiment.py](https://github.com/AlDCheng/AntiSalt/blob/master/NLP/NLK_sentiment.py) - Final text parser used. Finds if text has positive or negative connotation, and assigns a random weight to it.
+* [mood_lighting.py](https://github.com/AlDCheng/AntiSalt/blob/master/LightingFX/mood_lighting.py) - Script to change Corsair Keyboard backlighting using Corsair API
+* [music.py](https://github.com/AlDCheng/AntiSalt/blob/master/Music/music.py) - Optional music playback
 
 ### Face Recognition Training Functions
 
 Adapted from http://www.paulvangent.com/2016/04/01/emotion-recognition-with-python-opencv-and-a-face-dataset/):
 
-[Update_Model.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/Update_Model.py) - Updates training xml data
-[face_detect_append.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_append.py) - Can be used to add own pictures to training data
+* [Update_Model.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/Update_Model.py) - Updates training xml data
+* [face_detect_append.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_append.py) - Can be used to add own pictures to training data
 
 ## Authors
 
