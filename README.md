@@ -31,7 +31,7 @@ Python Application_Main_All.py
 * [face_detect_main.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_main.py) - Extra OpenCV helper function. Most of image processing moved to Application_Main_All.py
 * [NLK_sentiment.py](https://github.com/AlDCheng/AntiSalt/blob/master/NLP/NLK_sentiment.py) - Final text parser used. Finds if text has positive or negative connotation, and assigns a random weight to it.
 * [mood_lighting.py](https://github.com/AlDCheng/AntiSalt/blob/master/LightingFX/mood_lighting.py) - Script to change Corsair Keyboard backlighting using Corsair API
-* [music.py](https://github.com/AlDCheng/AntiSalt/blob/master/Music/music.py) - Optional music playback
+* [music.py](https://github.com/AlDCheng/AntiSalt/blob/master/Music/music.py) - Optional music playback. Disabled by default.
 
 ### Face Recognition Training Functions
 
