@@ -10,65 +10,32 @@ This project was made for YHack 2016, so the coding is still rather rough. Senti
 
 ### Prerequisites
 
+* [Python 2.7.12](https://www.python.org/) - 64 bit version - Libraries used: Tkinter, Numpy, OpenCV
 * OpenCV 2.4.x (Latest is [2.4.13](http://opencv.org/downloads.html)) - Installation instructions can be found in OpenCV's extensive documentation
 * [NLTK](http://www.nltk.org/) - We use the Movie Review Corpus in NLTK
 * [Corsair API (CUE SDK)](http://www.corsair.com/en-us/support/downloads) with [python wrapper](https://pypi.python.org/pypi/cue_sdk/)
 
-### Installing
+### Running
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
+We don't have any executables readily availible, so the program must be run via the command line. The main program is Application_Main_All.py, and can be run as:
 
 ```
-Give the example
+Python Application_Main_All.py
 ```
 
-And repeat
+## Files Involved
 
-```
-until finished
-```
+Main Program:
 
-End with an example of getting some data out of the system or using it for a little demo
+[Application_Main_All.py](https://github.com/AlDCheng/AntiSalt/blob/master/Application_Main_All.py) - Main python script using multithreading to handle processing.
+[face_detect_main.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_main.py) - Extra OpenCV helper function. Most of image processing moved to Application_Main_All.py
+[NLK_sentiment.py](https://github.com/AlDCheng/AntiSalt/blob/master/NLP/NLK_sentiment.py) - Final text parser used. Finds if text has positive or negative connotation, and assigns a random weight to it.
+[mood_lighting.py](https://github.com/AlDCheng/AntiSalt/blob/master/LightingFX/mood_lighting.py) - Script to change Corsair Keyboard backlighting using Corsair API
+[music.py](https://github.com/AlDCheng/AntiSalt/blob/master/Music/music.py) - Optional music playback
 
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Face Recognition Training Functions (adapted from http://www.paulvangent.com/2016/04/01/emotion-recognition-with-python-opencv-and-a-face-dataset/):
+[Update_Model.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/Update_Model.py) - Updates training xml data
+[face_detect_append.py](https://github.com/AlDCheng/AntiSalt/blob/master/face_detection/face_detect_append.py) - Can be used to add own pictures to training data
 
 ## Authors
 
@@ -76,15 +43,15 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-## License
+## Acknowledgments/References
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+General:
+* Corsair - Provided SDK and lent us Corsair K70 LUX keyboard to develop on
 
-## Acknowledgments
+CK+ Facial Expression Detection:
+* van Gent, P. (2016). Emotion Recognition With Python, OpenCV and a Face Dataset. A tech blog about fun things with Python and embedded electronics. Retrieved from: http://www.paulvangent.com/2016/04/01/emotion-recognition-with-python-opencv-and-a-face-dataset/
+* Kanade, T., Cohn, J. F., & Tian, Y. (2000). Comprehensive database for facial expression analysis. Proceedings of the Fourth IEEE International Conference on Automatic Face and Gesture Recognition (FG'00), Grenoble, France, 46-53.
+* Lucey, P., Cohn, J. F., Kanade, T., Saragih, J., Ambadar, Z., & Matthews, I. (2010). The Extended Cohn-Kanade Dataset (CK+): A complete expression dataset for action unit and emotion-specified expression. Proceedings of the Third International Workshop on CVPR for Human Communicative Behavior Analysis (CVPR4HB 2010), San Francisco, USA, 94-101.
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
-
-
-
+JAFFE Facial Expression Detection:
+* Michael J. Lyons, Shigeru Akemastu, Miyuki Kamachi, Jiro Gyoba. Coding Facial Expressions with Gabor Wavelets, 3rd IEEE International Conference on Automatic Face and Gesture Recognition, pp. 200-205 (1998).
